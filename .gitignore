@@ -1,0 +1,21 @@
+# Ambiente virtual
+.venv/
+venv/
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Credenciais
+.env
+.env.*
+!.env.example
+
+# Configuracoes locais
+.vscode/
+
+# Arquivos temporarios
+*.log
+.cache/
