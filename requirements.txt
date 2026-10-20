@@ -1,0 +1,12 @@
+numpy==2.5.4
+pandas==3.0.6
+scikit-learn==1.9.1
+joblib==1.6.0
+ucimlrepo==0.0.7
+matplotlib==3.11.2
+jupyter==1.1.1
+ipykernel==7.4.0
+fastapi==0.150.0
+uvicorn==0.54.0python 
+pytest==9.1.1
+httpx==0.28.1
