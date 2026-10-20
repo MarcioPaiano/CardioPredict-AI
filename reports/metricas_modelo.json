@@ -1,0 +1,30 @@
+{
+    "projeto": "CardioPredict Clínico",
+    "base_dados": "UCI Heart Disease - Cleveland",
+    "modelo": "RandomForestClassifier",
+    "arquivo_modelo": "models/cardiopredict_pipeline.joblib",
+    "registros": {
+        "treino": 181,
+        "validacao": 61,
+        "teste": 61
+    },
+    "metricas_teste": {
+        "acuracia": 0.8197,
+        "precisao": 0.7931,
+        "sensibilidade": 0.8214,
+        "especificidade": 0.8182,
+        "f1_score": 0.807,
+        "roc_auc": 0.9248
+    },
+    "matriz_confusao": [
+        [
+            27,
+            6
+        ],
+        [
+            5,
+            23
+        ]
+    ],
+    "observacao": "Modelo experimental. Não validado para uso clínico."
+}
