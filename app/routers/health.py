@@ -1,4 +1,5 @@
-from fastapi import APIRouter, Request
+
+from fastapi import APIRouter, HTTPException, Request
 
 router = APIRouter()
 
@@ -6,7 +7,10 @@ router = APIRouter()
 @router.get(
     "/health",
     summary="Verificar funcionamento da API",
-    description="Verifica se a API está funcionando e se o modelo foi carregado.",
+    description=(
+        "Verifica se a API está funcionando e "
+        "se o modelo de inteligência artificial está disponível."
+    ),
     tags=["Monitoramento"]
 )
 def verificar_saude(request: Request):
@@ -14,10 +18,10 @@ def verificar_saude(request: Request):
     modelo = getattr(request.app.state, "modelo", None)
 
     if modelo is None:
-        return {
-            "status": "erro",
-            "modelo_carregado": False
-        }
+        raise HTTPException(
+            status_code=503,
+            detail="Modelo não está disponível."
+        )
 
     return {
         "status": "ok",

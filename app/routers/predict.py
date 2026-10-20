@@ -20,7 +20,7 @@ router = APIRouter()
 | **age** | Idade em anos |
 | **sex** | Sexo: 0 = feminino; 1 = masculino |
 | **cp** | Dor torácica: 1 = angina típica; 2 = atípica; 3 = não anginosa; 4 = assintomático |
-| **trestbps** | Pressão arterial sistólica em repouso (mmHg) |
+| **trestbps** | Pressão arterial sistólica em repouso (mmHg). Limite operacional para processamento: 50 mmHg ou mais. |
 | **chol** | Colesterol sérico (mg/dL) |
 | **fbs** | Glicemia de jejum > 120 mg/dL: 0 = não; 1 = sim |
 | **restecg** | ECG: 0 = normal; 1 = alteração ST-T; 2 = hipertrofia ventricular esquerda |
@@ -34,9 +34,30 @@ router = APIRouter()
 **Atenção:** modelo experimental para fins educacionais.
 Não utilizar para diagnóstico ou decisões clínicas reais.
 """,
-    tags=["Classificação cardíaca"]
+    tags=["Classificação cardíaca"],
+    responses={
+        400: {
+            "description": "Dados rejeitados por regra operacional."
+        },
+        500: {
+            "description": "Erro interno durante a previsão."
+        },
+        503: {
+            "description": "Modelo de inteligência artificial indisponível."
+        }
+    }
+
 )
 def prever_doenca(dados: DadosPaciente, request: Request):
+    
+    if dados.trestbps < 50:
+        raise HTTPException(
+            status_code=400,
+            detail=(
+                "Pressão arterial sistólica inferior ao "
+                "limite operacional de 50 mmHg."
+            )
+        )
 
     modelo = getattr(request.app.state, "modelo", None)
 
